@@ -74,7 +74,8 @@ __Final equations after replacing the values in above equations__
 
 ### Equation for updating weights after each iteration
 
-`new_wi = old_wi - η * ∂E_total/∂wi`
+`new_wi = old_wi - η * ∂E_total/∂wi`  
+
 _where_
 - new_wi is the wi after update
 - old_wi is the wi from last iteration
