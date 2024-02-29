@@ -1,1 +1,7 @@
-
+![Alt text](Class%20BP%20File_SayanBanerjee.png?raw=true "Back Propagation calculation XLSX screen shot")
+![Alt text](eta_0_1.png?raw=true "learning_rate = 0.1")
+![Alt text](eta_0_2.png?raw=true "learning_rate = 0.2")
+![Alt text](eta_0_5.png?raw=true "learning_rate = 0.5")
+![Alt text](eta_0_8.png?raw=true "learning_rate = 0.8")
+![Alt text](eta_1.png?raw=true "learning_rate = 1")
+![Alt text](eta_2.png?raw=true "learning_rate = 2")
