@@ -7,6 +7,9 @@ The objective of this assignment is to rewrite the MNIST digit recognition code 
 5. Use Batch Normalization and Dropout
 6. Optional: Use GAP layer in place of a Fully connected layer
 
+[Go to the S6 notebook](https://github.com/sayanbanerjee32/TSAI_ERAv2_S6/blob/main/S6-Part2/ERAv2_S6_P2_SayanBanerjee_v6.ipynb)  
+
+
 ## Model building considerations
 
 |Sl. No.|Design consideration|Comment|
