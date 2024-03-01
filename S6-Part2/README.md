@@ -75,4 +75,7 @@ Below is the list of layers starting from input to output.
 |25.|Global Average Pooling|input size: 3 x 3 x 10, output size: 1 x 1 x 10 the squeez to array of 10|
 
 _Refer to the below image for number parameters in each layer_
+![Alt text](model_arch.png?raw=true "model architecture") 
 
+## Comparison of training and test loss and accuracies
+![Alt text](train_test_loss.png?raw=true "model architecture") 
