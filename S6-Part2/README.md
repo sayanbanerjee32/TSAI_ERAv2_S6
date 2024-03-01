@@ -15,7 +15,7 @@ The objective of this assignemment is to rewrite the MNIST digit recognition cod
 |2.|MaxPooling|Max pooling with kernel size 2 and stride 2 is used as first layer of each transition block to reduce channel dimension.|
 |3.|1x1 Convolutions|1x1 convolution (Antman kernel) is used as the 2nd layer of transition block to consolidation number of channels. This helped in reducing number of parameters in control.|
 |4.|3x3 Convolutions|3x3 convolutions with padding 1 and stride 1 is used for feature extraction in layers in convolution block|
-|5.|Receptive Field||
+|5.|Receptive Field|Effective receptive field for the network is 38x38|
 |6.|SoftMax|log_softmax is used to the feed output to NLL_loss (negative log-likelyhood loss)|
 |7.|Learning Rate|Learning rate started with a value of 0.01 and then reduced couple of times using multi-step LR scheduler while approaching end of training (higher number of epochs)|
 |8.|Kernels and how do we decide the number of kernels?|This is a function or cost /compute. In this case, number of total parameters. As each 3x3x1 kernel will contribute 9 parameters to be trained, number of kernels are kept low in starting in each block and then then increased to reach a certain level and then reduced again using AntMan Kernel|
@@ -28,11 +28,11 @@ The objective of this assignemment is to rewrite the MNIST digit recognition cod
 |15.|When do we introduce DropOut, or when do we know we have some overfitting|Overfitting is understood comparing loss and accuracy charts for training and testing for each epoch. No overfitting is observed afetr introducing dropout|
 |16.|The distance of MaxPooling from Prediction|Maxpooling is not used after last convolution block before prediction|
 |17.|The distance of Batch Normalization from Prediction|Batch Normalization is not used in last convolution layer / antman layer and GAP layer before prediction|
-|18.|When do we stop convolutions and go ahead with a larger kernel or some other alternative (which we have not yet covered)||
+|18.|When do we stop convolutions and go ahead with a larger kernel or some other alternative (which we have not yet covered)|Not considered|
 |19.|How do we know our network is not going well, comparatively, very early|Comparing loss and accuracy for training and testing after each epoch. This helps us understand whether we need to add more capacity for training well|
 |20.|Batch Size, and Effects of batch size|Tried with batch size of 64, 128, 256 and 512. In thsi case 128 faired better|
 
-## Achived result
+## Achieved result
 
 |Sl. No.|Constraint|Achieved - Yes / No|
 |-------|----------|--------------------|
@@ -42,3 +42,37 @@ The objective of this assignemment is to rewrite the MNIST digit recognition cod
 |4.|Less than 20 Epochs|Yes|
 |5.|Use Batch Normalization and Dropout|Yes|
 |6.|Optional: Use GAP layer in place of a Fully connected layer|Yes|
+
+## Network architecture
+
+Below is the list of layers starting from input to output.
+|Sl. No.|Layer|Additional details|
+|-------|-----|------------------|
+|1.|3x3 convolution with padding 1, stride 1, bias false|input size: 28 x 28 x 1, output size: 28 x 28 x 8, receptive field: 3|
+|2.|Batch normalization||
+|3.|3x3 convolution with padding 1, stride 1, bias false|input size: 28 x 28 x 8, output size: 28 x 28 x 16, receptive field: 3 + (3-1) * 1 = 5|
+|4.|Batch normalization||
+|5.|3x3 convolution with padding 1, stride 1, bias false|input size: 28 x 28 x 16, output size: 28 x 28 x 32, receptive field: 5 + (3-1) * 1 = 7|
+|6.|Batch normalization||
+|7.|2x2 max pooling with stride 2|input size: 28 x 28 x 32, output size: 14 x 14 x 32, receptive field: 7 + (3-1) * 1 = 8|
+|8.|1x1 convolution with padding 1, stride 1, bias false|input size: 14 x 14 x 32, output size: 14 x 14 x 8, receptive field: 8 + (1-1)*2 = 8|
+|9.|Batch normalization||
+|10.|Dropout|| dropout probability 0.1|
+|11.|3x3 convolution with padding 1, stride 1, bias false|input size: 14 x 14 x 8, output size: 14 x 14 x 16, receptive field: 8 + (3-1) * 2 = 12|
+|12.|Batch normalization||
+|13.|3x3 convolution with padding 1, stride 1, bias false|input size: 14 x 14 x 16, output size: 14 x 14 x 32, receptive field: 12 + (3-1) * 2 = 16|
+|14.|Batch normalization||
+|15.|2x2 max pooling with stride 2|input size: 14 x 14 x 32, output size: 7 x 7 x 32, receptive field: 16 + (2-1) * 2 =18|
+|16.|1x1 convolution with padding 1, stride 1, bias false|input size: 7 x 7 x 32, output size: 7 x 7 x 8, receptive field: 18 + (1-1) * 4 =18|
+|17.|Batch normalization||
+|18.|Dropout|| dropout probability 0.1|
+|19.|3x3 convolution with padding 1, stride 1, bias false|input size: 7 x 7 x 8, output size: 7 x 7 x 16, receptive field: 18 + (3-1) * 4 = 26|
+|20.|Batch normalization||
+|21.|3x3 convolution with padding 1, stride 1, bias false|input size: 7 x 7 x 16, output size: 7 x 7 x 32, receptive field: 26 + (3-1) * 4 = 34|
+|22.|Batch normalization||
+|23.|2x2 max pooling with stride 2|input size: 7 x 7 x 32, output size: 3 x 3 x 32, receptive field: 34 + (2-1) * 4 = 38|
+|24.|1x1 convolution with padding 1, stride 1, bias false|input size: 3 x 3 x 32, output size: 3 x 3 x 10, receptive field: 38 + (1-1) * 8 = 38|
+|25.|Global Average Pooling|input size: 3 x 3 x 10, output size: 1 x 1 x 10 the squeez to array of 10|
+
+_Refer to the below image for number parameters in each layer_
+
